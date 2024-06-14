@@ -42,7 +42,7 @@ class PlatformProvider extends OrchidServiceProvider
                 ->route('platform.posts.index'),
             Menu::make('Создание постов')
                 ->icon('bs.sticky')
-                ->route('platform.posts.index'),
+                ->route('platform.posts.create'),
             // post
 
 

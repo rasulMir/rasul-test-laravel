@@ -36,11 +36,20 @@ use Tabuna\Breadcrumbs\Trail;
 
 // Posts
 Route::screen('/posts', PostListScreen::class)
-    ->name('platform.posts.index');
+    ->name('platform.posts.index')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push(__('Посты'), route('platform.posts.index')));
 Route::screen('/posts/create', PostCreateScreen::class)
-    ->name('platform.posts.create');
+    ->name('platform.posts.create')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.index')
+        ->push(__('Создание поста'), route('platform.posts.create')));
 Route::screen('/posts/{post}/edit', PostEditScreen::class)
-    ->name('platform.posts.edit');
+    ->name('platform.posts.edit')
+    ->breadcrumbs(fn (Trail $trail) => $trail
+        ->parent('platform.iposts.ndex')
+        ->push(__('Редактирование поста'), route('platform.posts.edit')));
 // Posts
 
 // Main

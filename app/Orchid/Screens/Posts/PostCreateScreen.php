@@ -2,6 +2,8 @@
 
 namespace App\Orchid\Screens\Posts;
 
+use App\Orchid\Layouts\Posts\PostCreateLayout;
+use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;
 
 class PostCreateScreen extends Screen
@@ -23,7 +25,7 @@ class PostCreateScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'PostCreateScreen';
+        return __('Создание поста.');
     }
 
     /**
@@ -33,7 +35,11 @@ class PostCreateScreen extends Screen
      */
     public function commandBar(): iterable
     {
-        return [];
+        return [
+            Button::make(__('Сохранить'))
+                ->icon('bs.check-circle')
+                ->method('save'),
+        ];
     }
 
     /**
@@ -43,6 +49,8 @@ class PostCreateScreen extends Screen
      */
     public function layout(): iterable
     {
-        return [];
+        return [
+            PostCreateLayout::class,
+        ];
     }
 }
