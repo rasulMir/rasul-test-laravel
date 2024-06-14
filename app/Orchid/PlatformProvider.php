@@ -34,6 +34,18 @@ class PlatformProvider extends OrchidServiceProvider
     public function menu(): array
     {
         return [
+
+            // post
+            Menu::make('Все посты')
+                ->title('Посты')
+                ->icon('bs.stickies')
+                ->route('platform.posts.index'),
+            Menu::make('Создание постов')
+                ->icon('bs.sticky')
+                ->route('platform.posts.index'),
+            // post
+
+
             Menu::make('Get Started')
                 ->icon('bs.book')
                 ->title('Navigation')
@@ -103,9 +115,9 @@ class PlatformProvider extends OrchidServiceProvider
             ItemPermission::group(__('System'))
                 ->addPermission('platform.systems.roles', __('Roles'))
                 ->addPermission('platform.systems.users', __('Users')),
-            
+
             ItemPermission::group(__('Администратор')),
-            
+
             ItemPermission::group(__('Модератор')),
         ];
     }

@@ -12,6 +12,9 @@ use App\Orchid\Screens\Examples\ExampleLayoutsScreen;
 use App\Orchid\Screens\Examples\ExampleScreen;
 use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
 use App\Orchid\Screens\PlatformScreen;
+use App\Orchid\Screens\Posts\PostCreateScreen;
+use App\Orchid\Screens\Posts\PostEditScreen;
+use App\Orchid\Screens\Posts\PostListScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
@@ -30,6 +33,15 @@ use Tabuna\Breadcrumbs\Trail;
 | contains the need "dashboard" middleware group. Now create something great!
 |
 */
+
+// Posts
+Route::screen('/posts', PostListScreen::class)
+    ->name('platform.posts.index');
+Route::screen('/posts/create', PostCreateScreen::class)
+    ->name('platform.posts.create');
+Route::screen('/posts/{post}/edit', PostEditScreen::class)
+    ->name('platform.posts.edit');
+// Posts
 
 // Main
 Route::screen('/main', PlatformScreen::class)
