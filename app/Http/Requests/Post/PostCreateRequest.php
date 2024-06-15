@@ -11,7 +11,7 @@ class PostCreateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->user()->hasAccess('platform.posts.create');
     }
 
     /**

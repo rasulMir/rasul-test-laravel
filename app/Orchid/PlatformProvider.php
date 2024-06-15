@@ -39,10 +39,12 @@ class PlatformProvider extends OrchidServiceProvider
             Menu::make('Все посты')
                 ->title('Посты')
                 ->icon('bs.stickies')
-                ->route('platform.posts.index'),
+                ->route('platform.posts.index')
+                ->active('platform.posts.index'),
             Menu::make('Создание постов')
                 ->icon('bs.sticky')
-                ->route('platform.posts.create'),
+                ->route('platform.posts.create')
+                ->active('platform.posts.create'),
             // post
 
 
@@ -116,9 +118,12 @@ class PlatformProvider extends OrchidServiceProvider
                 ->addPermission('platform.systems.roles', __('Roles'))
                 ->addPermission('platform.systems.users', __('Users')),
 
-            ItemPermission::group(__('Администратор')),
+            ItemPermission::group(__('Администратор'))
+                ->addPermission('platform.posts.create', __('Создание поста'))
+                ->addPermission('platform.posts.delete', __('Удаление поста')),
 
-            ItemPermission::group(__('Модератор')),
+            ItemPermission::group(__('Модератор'))
+                ->addPermission('platform.posts.edit', __('Редактирование поста')),
         ];
     }
 }

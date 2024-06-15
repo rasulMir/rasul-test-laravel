@@ -2,6 +2,9 @@
 
 namespace App\Orchid\Screens\Posts;
 
+use App\Models\Post;
+use App\Orchid\Layouts\Posts\PostCreateLayout;
+use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;
 
 class PostEditScreen extends Screen
@@ -11,9 +14,11 @@ class PostEditScreen extends Screen
      *
      * @return array
      */
-    public function query(): iterable
+    public function query(Post $post): iterable
     {
-        return [];
+        return [
+            'post' => $post->load('attachment'),
+        ];
     }
 
     /**
@@ -23,7 +28,7 @@ class PostEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'PostEditScreen';
+        return __('Редактирование поста.');
     }
 
     /**
@@ -33,7 +38,11 @@ class PostEditScreen extends Screen
      */
     public function commandBar(): iterable
     {
-        return [];
+        return [
+            Button::make(__('Сохранить'))
+                ->icon('bs.check-circle')
+                ->method('edit'),
+        ];
     }
 
     /**
@@ -43,6 +52,13 @@ class PostEditScreen extends Screen
      */
     public function layout(): iterable
     {
-        return [];
+        return [
+            PostCreateLayout::class,
+        ];
+    }
+
+    public function edit(Post $post)
+    {
+
     }
 }

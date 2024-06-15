@@ -48,7 +48,7 @@ Route::screen('/posts/create', PostCreateScreen::class)
 Route::screen('/posts/{post}/edit', PostEditScreen::class)
     ->name('platform.posts.edit')
     ->breadcrumbs(fn (Trail $trail) => $trail
-        ->parent('platform.iposts.ndex')
+        ->parent('platform.posts.index')
         ->push(__('Редактирование поста'), route('platform.posts.edit')));
 // Posts
 
