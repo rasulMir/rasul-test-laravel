@@ -37,7 +37,7 @@ class PostCreateLayout extends Rows
                 ->placeholder(__('Стратегическое мышление, коммуникативные навыки, мотивация, готовность принимать риски и делегировать ответственность - это ключевые составляющие успеха в лидерстве. Развивая эти качества, каждый может стать успешным лидером и вести свою команду к успеху.'))
                 ->rows(5)
                 ->required(),
-            Relation::make('post.post_tags.')
+            Relation::make('post.post_tags')
                 ->fromModel(PostTag::class, 'name')
                 ->title(__('Тэги'))
                 ->multiple()
@@ -47,15 +47,15 @@ class PostCreateLayout extends Rows
                 ->help(__('Загрузите изображение с устройства.'))
                 ->width(300)
                 ->height(200)
+                ->acceptedFiles('.jpg, .jpeg, .png')
                 ->maxFileSize(3)
                 ->targetId()
                 ->required(),
             CheckBox::make('post.visibility')
-                ->value(1)
+                ->checked()
                 ->title(__('Видимость поста'))
                 ->placeholder(__('Опубликовать / Черновик'))
-                ->sendTrueOrFalse()
-                ->required(),
+                ->sendTrueOrFalse(),
         ];
     }
 }

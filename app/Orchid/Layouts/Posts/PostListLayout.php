@@ -3,6 +3,7 @@
 namespace App\Orchid\Layouts\Posts;
 
 use App\Models\Post;
+use App\Models\PostTag;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
@@ -31,22 +32,34 @@ class PostListLayout extends Table
     {
         return [
             TD::make('id', __('#'))
-                ->canSee(false),
+                ->defaultHidden(),
+            TD::make('attachment', __('Изображение'))
+                ->render(function (Post $post) {
+                    $image = $post->attachment()->first();
+
+                    return $image
+                        ? '<img src="' . $image->url . '" height="80px" />'
+                        : '&mdash;';
+                })
+                ->align(TD::ALIGN_CENTER),
             TD::make('title', __('Заголовок')),
             TD::make('body', __('Текст'))
-                ->canSee(false),
-            TD::make('post_category_id', __('Тег'))
-                ->render(fn (Post $post) => $post->category->name),
+                ->defaultHidden(),
+            TD::make('tags', __('Теги'))
+                ->render(
+                    fn (Post $post) => implode($post->tags->map(fn (PostTag $item) => $item->name . ';<br>')->toArray())
+                )
+                ->width(180),
             TD::make('visibility', __('Видимость'))
-                ->render(fn (Post $post) => $post->visibility ? __('Опубликован') : __('Черновик')),
+                ->render(fn (Post $post) => __($post->visibility ? 'Опубликован' : 'Черновик')),
             TD::make('created_at', __('Дата создания'))
                 ->usingComponent(DateTimeSplit::class)
                 ->align(TD::ALIGN_RIGHT)
-                ->canSee(false),
+                ->defaultHidden(),
             TD::make('updated_at', __('Дата редактирования'))
                 ->usingComponent(DateTimeSplit::class)
                 ->align(TD::ALIGN_RIGHT)
-                ->canSee(false),
+                ->defaultHidden(),
             TD::make(__('Действия'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('50px')
