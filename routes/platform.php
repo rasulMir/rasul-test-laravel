@@ -15,6 +15,9 @@ use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Posts\PostCreateScreen;
 use App\Orchid\Screens\Posts\PostEditScreen;
 use App\Orchid\Screens\Posts\PostListScreen;
+use App\Orchid\Screens\PostTag\PostTagCreateScreen;
+use App\Orchid\Screens\PostTag\PostTagEditScreen;
+use App\Orchid\Screens\PostTag\PostTagListScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
@@ -51,6 +54,15 @@ Route::screen('/posts/{post}/edit', PostEditScreen::class)
         ->parent('platform.posts.index')
         ->push(__('Редактирование поста'), route('platform.posts.edit')));
 // Posts
+
+// PostTag
+Route::screen('/tags', PostTagListScreen::class)
+    ->name('platform.tags.index');
+Route::screen('/tags/create', PostTagCreateScreen::class)
+    ->name('platform.tags.create');
+Route::screen('/tags/{tag}/edit', PostTagEditScreen::class)
+    ->name('platform.tags.edit');
+// PostTag
 
 // Main
 Route::screen('/main', PlatformScreen::class)

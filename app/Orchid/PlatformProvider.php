@@ -47,6 +47,13 @@ class PlatformProvider extends OrchidServiceProvider
                 ->active('platform.posts.create'),
             // post
 
+            // post-tag
+            Menu::make('Тэги')
+                ->icon('bs.tags')
+                ->route('platform.tags.index')
+                ->active('platform.tags.index'),
+            // post-tag
+
 
             Menu::make('Get Started')
                 ->icon('bs.book')
