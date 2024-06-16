@@ -20,7 +20,7 @@ class PostListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'posts' => Post::with('attachment')->paginate(),
+            'posts' => Post::with('attachment')->paginate(10),
         ];
     }
 

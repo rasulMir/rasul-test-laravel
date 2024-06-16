@@ -41,6 +41,7 @@ class PostCreateLayout extends Rows
                 ->fromModel(PostTag::class, 'name')
                 ->title(__('Тэги'))
                 ->help(__('Тэги должны быть созданы и уже быть в бд.'))
+                ->chunk(20)
                 ->multiple()
                 ->required(),
             Cropper::make('post.preview_image')
