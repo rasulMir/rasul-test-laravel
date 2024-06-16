@@ -11,7 +11,7 @@ class PostCreateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->user()->hasAccess('platform.posts.create');
+        return auth()->user()->hasAnyAccess(['platform.posts.create', 'platform.posts.edit']);
     }
 
     /**
@@ -24,7 +24,7 @@ class PostCreateRequest extends FormRequest
         return [
             'post.title' => ['required', 'string', 'max:255'],
             'post.body' => ['required', 'string'],
-            'post.post_tags' => ['required', 'array'],
+            'post.tags' => ['required', 'array'],
             'post.preview_image' => ['required', 'integer'],
             'post.visibility' => ['required', 'boolean'],
         ];

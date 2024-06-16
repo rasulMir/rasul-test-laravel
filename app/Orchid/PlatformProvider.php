@@ -44,7 +44,8 @@ class PlatformProvider extends OrchidServiceProvider
             Menu::make('Создание постов')
                 ->icon('bs.sticky')
                 ->route('platform.posts.create')
-                ->active('platform.posts.create'),
+                ->active('platform.posts.create')
+                ->canSee(auth()->user()->hasAccess('platform.posts.create')),
             // post
 
             // post-tag

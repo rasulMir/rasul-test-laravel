@@ -37,18 +37,16 @@ class PostCreateLayout extends Rows
                 ->placeholder(__('Стратегическое мышление, коммуникативные навыки, мотивация, готовность принимать риски и делегировать ответственность - это ключевые составляющие успеха в лидерстве. Развивая эти качества, каждый может стать успешным лидером и вести свою команду к успеху.'))
                 ->rows(5)
                 ->required(),
-            Relation::make('post.post_tags')
+            Relation::make('post.tags')
                 ->fromModel(PostTag::class, 'name')
                 ->title(__('Тэги'))
+                ->help(__('Тэги должны быть созданы и уже быть в бд.'))
                 ->multiple()
                 ->required(),
             Cropper::make('post.preview_image')
                 ->title(__('Изображение для превью'))
                 ->help(__('Загрузите изображение с устройства.'))
-                ->width(300)
-                ->height(200)
-                ->acceptedFiles('.jpg, .jpeg, .png')
-                ->maxFileSize(3)
+                ->acceptedFiles('.jpg, .jpeg, .png, .svg')
                 ->targetId()
                 ->required(),
             CheckBox::make('post.visibility')

@@ -7,7 +7,9 @@ use App\Models\Post;
 use App\Orchid\Layouts\Posts\PostCreateLayout;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;
+use Orchid\Support\Color;
 use Orchid\Support\Facades\Alert;
+use Orchid\Support\Facades\Layout;
 
 class PostCreateScreen extends Screen
 {
@@ -18,7 +20,6 @@ class PostCreateScreen extends Screen
     {
         return [
             'platform.posts.create',
-            'platform.posts.delete',
         ];
     }
 
@@ -64,15 +65,23 @@ class PostCreateScreen extends Screen
     public function layout(): iterable
     {
         return [
-            PostCreateLayout::class,
+            Layout::block(PostCreateLayout::class)
+                ->title(__('Создание поста.'))
+                ->description(__('Создаите пост правильно заполнив все поля.'))
+                ->commands(
+                    Button::make(__('Сохранить'))
+                        ->type(Color::BASIC)
+                        ->icon('bs.check-circle')
+                        ->method('save')
+                ),
         ];
     }
 
     public function save(PostCreateRequest $request)
     {
-        $post = Post::create($request->collect('post')->except('post_tags')->toArray());
-        $post->attachment()->syncWithoutDetaching($request->input('post.preview_image', []));
-        $post->tags()->attach($request->input('post.post_tags'));
+        $post = Post::create($request->collect('post')->except('tags')->toArray());
+        $post->attachment()->attach($request->input('post.preview_image', []));
+        $post->tags()->attach($request->input('post.tags'));
 
         Alert::info('Пост успешно создан.');
 

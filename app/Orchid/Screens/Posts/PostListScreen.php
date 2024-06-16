@@ -3,9 +3,12 @@
 namespace App\Orchid\Screens\Posts;
 
 use App\Models\Post;
+use App\Models\PostTag;
 use App\Orchid\Layouts\Posts\PostListLayout;
+use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
+use Orchid\Support\Facades\Toast;
 
 class PostListScreen extends Screen
 {
@@ -46,7 +49,8 @@ class PostListScreen extends Screen
         return [
             Link::make(__('Создать пост'))
                 ->icon('bs.plus-circle')
-                ->href(route('platform.posts.create')),
+                ->href(route('platform.posts.create'))
+                ->canSee(auth()->user()->hasAccess('platform.posts.create')),
         ];
     }
 
@@ -60,5 +64,17 @@ class PostListScreen extends Screen
         return [
             PostListLayout::class,
         ];
+    }
+
+    public function remove(Request $request)
+    {
+        $post = Post::findOrFail($request->get('id'));
+        $tags = $post->tags->map(fn (PostTag $item) => $item->id)->toArray();
+        $post->tags()->detach(array_values($tags));
+        $post->attachment()->delete();
+
+        $post->delete();
+        Toast::info(__('Пост был успешно удален.'));
+        return redirect()->route('platform.posts.index');
     }
 }

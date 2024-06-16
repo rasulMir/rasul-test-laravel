@@ -50,9 +50,9 @@ Route::screen('/posts/create', PostCreateScreen::class)
         ->push(__('Создание поста'), route('platform.posts.create')));
 Route::screen('/posts/{post}/edit', PostEditScreen::class)
     ->name('platform.posts.edit')
-    ->breadcrumbs(fn (Trail $trail) => $trail
+    ->breadcrumbs(fn (Trail $trail, $post) => $trail
         ->parent('platform.posts.index')
-        ->push(__('Редактирование поста'), route('platform.posts.edit')));
+        ->push(__('Редактирование поста'), route('platform.posts.edit', $post->id)));
 // Posts
 
 // PostTag

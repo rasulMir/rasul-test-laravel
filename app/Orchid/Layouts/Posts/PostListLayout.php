@@ -68,14 +68,16 @@ class PostListLayout extends Table
                     ->list([
                         Link::make(__('Редактировать'))
                             ->route('platform.posts.edit', $post->id)
-                            ->icon('bs.pencil'),
+                            ->icon('bs.pencil')
+                            ->canSee(auth()->user()->hasAccess('platform.posts.edit')),
 
                         Button::make(__('Удалить'))
                             ->icon('bs.trash3')
                             ->confirm(__('Вы точно хотите удалить данный пост?'))
                             ->method('remove', [
                                 'id' => $post->id,
-                            ]),
+                            ])
+                            ->canSee(auth()->user()->hasAccess('platform.posts.delete')),
                     ])),
 
         ];
